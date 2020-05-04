@@ -1,0 +1,45 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD com.example.Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rivers.stock.mapper.UserMapper">
+    <resultMap id="result" type="com.rivers.stock.entity.User">
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="age" column="age" />
+        <result property="sex" column="sex"/>
+
+    </resultMap>
+
+    <select id="ListUser" resultMap="result">
+		SELECT * FROM tb_user
+	</select>
+
+    <select id="findUserByName" resultMap="result">
+		SELECT * FROM tb_user where name=#{name}
+	</select>
+
+    <insert id="insertUser" parameterType="com.rivers.stock.entity.User"
+            keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO tb_user
+		(
+		username,password,name,sex,age
+		)
+		VALUES (
+		#{username, jdbcType=VARCHAR},
+		#{password, jdbcType=VARCHAR},
+		#{name, jdbcType=VARCHAR},
+		#{sex, jdbcType=VARCHAR},
+		#{age}
+		)
+	</insert>
+
+    <delete id="delete" parameterType="int">
+		delete from tb_user where id=#{id}
+	</delete>
+
+    <update id="Update" parameterType="com.rivers.stock.entity.User">
+	update tb_user set tb_user.username=#{username},tb_user.password=#{password},tb_user.name=#{name} where tb_user.id=#{id}
+	</update>
+</mapper>
